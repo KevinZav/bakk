@@ -1,0 +1,21 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import configEnvironment from './config-environment';
+import { environments } from './environment.type';
+import * as Joi from 'joi';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: environments[process.env.ENVIRONMENT || 'development'],
+      isGlobal: true,
+      load: [configEnvironment],
+      validationSchema: Joi.object({
+        ENVIRONMENT: Joi.string().valid('development', 'test', 'production'),
+        NODE_PORT: Joi.number()
+      })
+    })
+  ],
+  exports: [ConfigModule]
+})
+export class EnvironmentModule {}
