@@ -10,4 +10,5 @@ export interface IAuthRepository {
   getAll(): Promise<User[]>;
   getOneByUsername(username: string): Promise<User>;
   verify(username: string, password: string): Promise<User | null>;
+  changePassword(username: string, newPassword: string): Promise<void>;
 }

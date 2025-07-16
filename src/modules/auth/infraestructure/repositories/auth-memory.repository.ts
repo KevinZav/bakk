@@ -62,4 +62,10 @@ export class AuthMemoryRepository implements IAuthRepository {
     this.users.push(newUser);
     return newUser;
   }
+
+  async changePassword(username: string, newPassword: string): Promise<void> {
+    const user = await this.getOneByUsername(username);
+
+    user.password = newPassword;
+  }
 }
