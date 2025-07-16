@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './domain/services/auth/auth.service';
-import { IAuthRepositoryName } from './domain/repositories/auth.repository';
-import { AuthMemoryRepository } from './infraestructure/repositories/auth-memory.repository';
 import { AuthController } from './infraestructure/controllers/auth/auth.controller';
 import { SignUseCase } from './domain/use-cases/sign.usecase';
 import { GetOneByUsernameUseCase } from './domain/use-cases/get-one-by-username.usecase';
 import { GetAllUseCase } from './domain/use-cases/get-all.usecase';
-import { IEncrytionServiceName } from './domain/services/encryption/encryption.service';
-import { BcryptEncryptionService } from './infraestructure/services/bcrypt-encryption/bcrypt-encryption.service';
 import { LoginUseCase } from './domain/use-cases/login.usecase';
+import { InfraestructureModule } from './infraestructure/infraestructure.module';
+import { LocalStrategy } from './domain/strategies/local.strategy';
+import { GenerateJwtUseCase } from './domain/use-cases/generate-jwt.usecase';
+import { JwtAuthService } from './domain/services/jwt/jwt-auth.service';
+import { JwtAuthModule } from './infraestructure/jwt/jwt-auth.module';
+import { JwtStrategy } from './domain/strategies/jwt.strategy';
+import { ChangePasswordUseCase } from './domain/use-cases/change-password.usecase';
 
 @Module({
   providers: [
@@ -17,15 +20,16 @@ import { LoginUseCase } from './domain/use-cases/login.usecase';
     GetAllUseCase,
     GetOneByUsernameUseCase,
     LoginUseCase,
-    {
-      provide: IAuthRepositoryName,
-      useClass: AuthMemoryRepository
-    },
-    {
-      provide: IEncrytionServiceName,
-      useClass: BcryptEncryptionService
-    }
+    LocalStrategy,
+    JwtStrategy,
+    GenerateJwtUseCase,
+    ChangePasswordUseCase,
+    JwtAuthService
   ],
-  controllers: [AuthController]
+  controllers: [AuthController],
+  imports: [
+    InfraestructureModule,
+    JwtAuthModule
+  ],
 })
 export class AuthModule {}
