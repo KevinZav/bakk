@@ -12,7 +12,10 @@ import * as Joi from 'joi';
       load: [configEnvironment],
       validationSchema: Joi.object({
         ENVIRONMENT: Joi.string().valid('development', 'test', 'production'),
-        NODE_PORT: Joi.number()
+        NODE_PORT: Joi.number(),
+        JWT_PRIVATE_KEY: Joi.string().required(),
+        JWT_PUBLIC_KEY: Joi.string().required(),
+        JWT_EXPIRE_TIME: Joi.string().required()
       })
     })
   ],
