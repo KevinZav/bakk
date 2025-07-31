@@ -1,5 +1,6 @@
 import { TokenGuard } from '@modules/auth/domain/guards/token.guard';
 import { UserJwt } from '@modules/auth/domain/interfaces/user-jwt.interface';
+import { ImageFile } from '@modules/file-upload/domain/decorators/image-file.decorator';
 import { CreateProfileDto, UpdateProfileDto } from '@modules/profile/domain/dtos/profile.dto';
 import { ProfileService } from '@modules/profile/domain/services/profile.service';
 import { Body, Controller, Delete, Get, Inject, Post, Put, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
@@ -44,7 +45,7 @@ export class ProfileController {
   @TokenGuard()
   @Put('avatar-image')
   @UseInterceptors(FileInterceptor('file'))
-  async updateAvatar(@Req() req: any, @UploadedFile() file: Express.Multer.File) {
+  async updateAvatar(@Req() req: any, @ImageFile() file: Express.Multer.File) {
     const user = req.user as UserJwt;
 
     return this.profileService.updateAvatar(file, user.username);
