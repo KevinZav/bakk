@@ -15,7 +15,12 @@ import * as Joi from 'joi';
         NODE_PORT: Joi.number(),
         JWT_PRIVATE_KEY: Joi.string().required(),
         JWT_PUBLIC_KEY: Joi.string().required(),
-        JWT_EXPIRE_TIME: Joi.string().required()
+        JWT_EXPIRE_TIME: Joi.string().required(),
+        DATABASE_URL: Joi.string().required(),
+        CLOUDINARY_CLOUD_NAME: Joi.string().required(),
+        CLOUDINARY_API_KEY: Joi.string().required(),
+        CLOUDINARY_API_SECRET: Joi.string().required(),
+
       })
     })
   ],

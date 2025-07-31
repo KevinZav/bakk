@@ -8,6 +8,11 @@ export default registerAs('config', () => {
       secretKey: process.env.JWT_PRIVATE_KEY,
       publicKey: process.env.JWT_PUBLIC_KEY,
       expireTime: process.env.JWT_EXPIRE_TIME
+    },
+    cloudinary: {
+      name: process.env.CLOUDINARY_CLOUD_NAME,
+      apiKey: process.env.CLOUDINARY_API_KEY,
+      apiSecret: process.env.CLOUDINARY_API_SECRET
     }
   };
 });
