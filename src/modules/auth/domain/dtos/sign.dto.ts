@@ -5,8 +5,4 @@ export class SignDto {
   username: string;
   @IsString()
   password: string;
-  @IsString()
-  name: string = '';
-  @IsString()
-  lastName: string = '';
 }

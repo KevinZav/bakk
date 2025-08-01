@@ -56,8 +56,6 @@ export class AuthMemoryRepository implements IAuthRepository {
     const newUser = new User(
       dto.username,
       passwordEncrypt,
-      dto.name,
-      dto.lastName,
     );
     this.users.push(newUser);
     return newUser;
