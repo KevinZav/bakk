@@ -1,6 +1,12 @@
-import { IsString } from "class-validator";
+import { Matches } from 'class-validator';
+import {
+  passwordErrorMessage,
+  passwordRegex,
+} from '../constants/auth.constant';
 
 export class ChangePasswordDto {
-  @IsString()
+  @Matches(passwordRegex, {
+    message: passwordErrorMessage,
+  })
   password: string;
 }

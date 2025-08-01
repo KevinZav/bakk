@@ -30,7 +30,7 @@ export class AuthPrismaDatasource implements IAuthDatasource {
   }
 
   async sign(dto: SignDto): Promise<User> {
-    const user = await this.getOneByUsername(dto.username);
+    const user = await this.getOneByUsername(dto.username).catch((_) => null);
 
     if (user) {
       throw AuthErrors.usernameInUse()
