@@ -46,6 +46,12 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Environments
+If you want to know what environments are availables you should check this file: [Environments type](src/configuration/environment/environment.type.ts)
+
+### Variables
+All variables that you should define are defined in [Environment example file](.env.example)
+
 ## Implementations
 
 This project uses Prisma ORM for database management and Cloudinary for upload files. If you want to use new tools you should uninstall this one.
