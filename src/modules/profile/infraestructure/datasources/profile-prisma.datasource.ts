@@ -3,8 +3,8 @@ import { IProfileDatasource } from "@modules/profile/domain/datasources/profile.
 import { CreateProfileDto, UpdateProfileDto } from "@modules/profile/domain/dtos/profile.dto";
 import { Profile } from "@modules/profile/domain/entities/profile.entity";
 import { Injectable } from "@nestjs/common";
-import { HttpErrorByCode } from "@nestjs/common/utils/http-error-by-code.util";
 import { ProfileMapper } from "../mappers/profile.mapper";
+import { ProfileErrors } from "@modules/profile/domain/errors/profile.error";
 
 @Injectable()
 export class ProfilePrismaDatasource implements IProfileDatasource {
@@ -15,7 +15,7 @@ export class ProfilePrismaDatasource implements IProfileDatasource {
     const profileFound =  await this.get(username).catch((e) => null);
 
     if(profileFound) {
-      throw new HttpErrorByCode[400]('Duplicated username profile');
+      throw ProfileErrors.usernameInUse();
     }
     
     const newProfile = await this.database.profile.create({
@@ -36,7 +36,7 @@ export class ProfilePrismaDatasource implements IProfileDatasource {
       }
     }).catch((e) => null);
     if (!profile) {
-      throw new HttpErrorByCode[400]('Profile not found or inactive');
+      throw ProfileErrors.notFound();
     }
 
     return ProfileMapper.databaseToEntity(profile);

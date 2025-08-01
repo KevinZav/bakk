@@ -1,14 +1,33 @@
-import { PartialType } from "@nestjs/mapped-types";
-import { IsDateString, IsOptional, IsPhoneNumber, IsString, IsUrl } from "class-validator";
+import { PartialType } from '@nestjs/mapped-types';
+import {
+  IsDateString,
+  IsOptional,
+  IsPhoneNumber,
+  Matches,
+} from 'class-validator';
+import {
+  bioErrorMessage,
+  bioRegex,
+  genderErrorMessage,
+  genderRegex,
+  nameErrorMessage,
+  nameRegex,
+} from '../constants/profile.constant';
 
 export class CreateProfileDto {
-  @IsString()
+  @Matches(nameRegex, {
+    message: nameErrorMessage,
+  })
   name: string;
 
-  @IsString()
+  @Matches(nameRegex, {
+    message: nameErrorMessage,
+  })
   lastName: string;
 
-  @IsString()
+  @Matches(genderRegex, {
+    message: genderErrorMessage,
+  })
   gender: string;
 
   @IsDateString()
@@ -19,11 +38,9 @@ export class CreateProfileDto {
   phoneNumber?: string;
 
   @IsOptional()
-  @IsUrl()
-  avatarUrl?: string;
-
-  @IsOptional()
-  @IsString()
+  @Matches(bioRegex, {
+    message: bioErrorMessage,
+  })
   bio?: string;
 }
 

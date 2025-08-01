@@ -1,8 +1,18 @@
-import { IsString } from "class-validator";
+import { Matches } from 'class-validator';
+import {
+  passwordErrorMessage,
+  passwordRegex,
+  usernameErrorMessage,
+  usernameRegex,
+} from '../constants/auth.constant';
 
 export class SignDto {
-  @IsString()
+  @Matches(usernameRegex, {
+    message: usernameErrorMessage,
+  })
   username: string;
-  @IsString()
+  @Matches(passwordRegex, {
+    message: passwordErrorMessage,
+  })
   password: string;
 }
