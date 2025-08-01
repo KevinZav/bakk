@@ -1,7 +1,8 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { Strategy } from "passport-local";
 import { AuthService } from "../../domain/services/auth/auth.service";
+import { AuthErrors } from "../errors/auth.error";
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
@@ -16,7 +17,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     try {
       return await this.authService.login({username, password});
     } catch (e) {
-      throw new UnauthorizedException('access denied');
+      throw AuthErrors.unauthorized();
     }
   }
 }
